@@ -1,0 +1,1 @@
+SELECT id, title, author, published_year, read FROM books WHERE id = /*id*/1
