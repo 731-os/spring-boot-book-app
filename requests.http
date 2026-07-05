@@ -1,0 +1,33 @@
+### ① 一覧取得(最初は空っぽのはず)
+GET http://localhost:8080/api/books
+
+### ② 本を登録
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "スッキリわかるJava入門",
+  "author": "中山清喬",
+  "publishedYear": 2021,
+  "read": false
+}
+
+### ③ 一覧取得(登録した本が増えてるはず)
+GET http://localhost:8080/api/books
+
+### ④ 詳細取得(idは③の結果を見て書き換えてね)
+GET http://localhost:8080/api/books/1
+
+### ⑤ 更新
+PUT http://localhost:8080/api/books/1
+Content-Type: application/json
+
+{
+  "title": "スッキリわかるJava入門 第2版",
+  "author": "中山清喬",
+  "publishedYear": 2021,
+  "read": true
+}
+
+### ⑥ 削除
+DELETE http://localhost:8080/api/books/1
