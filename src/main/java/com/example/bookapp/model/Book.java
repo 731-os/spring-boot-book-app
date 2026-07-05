@@ -1,11 +1,35 @@
 package com.example.bookapp.model;
 
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
+import org.seasar.doma.GeneratedValue;
+import org.seasar.doma.GenerationType;
+import org.seasar.doma.Column;
+
+@Entity
+@Table(catalog = "", schema = "", name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String author;
+
+    @Column(name = "published_year")
     private int publishedYear;
+
     private boolean read;
+
+    public Book() {    }
+
+
+//    private Long id;
+//    private String title;
+//    private String author;
+//    private int publishedYear;
+//    private boolean read;
 
     public Book(Long id, String title, String author, int publishedYear, boolean read) {
         this.id = id;
