@@ -6,8 +6,8 @@ POST http://localhost:8080/api/books
 Content-Type: application/json
 
 {
-  "title": "スッキリわかるJava入門",
-  "author": "中山清喬",
+  "title": "わかるJava入門",
+  "author": "田中太郎",
   "publishedYear": 2021,
   "read": false
 }
@@ -19,15 +19,15 @@ GET http://localhost:8080/api/books
 GET http://localhost:8080/api/books/1
 
 ### ⑤ 更新
-PUT http://localhost:8080/api/books/1
+PUT http://localhost:8080/api/books/5
 Content-Type: application/json
 
 {
-  "title": "スッキリわかるJava入門 第2版",
-  "author": "中山清喬",
+  "title": "わかるJava入門",
+  "author": "田中太郎",
   "publishedYear": 2021,
   "read": true
 }
 
 ### ⑥ 削除
-DELETE http://localhost:8080/api/books/1
+DELETE http://localhost:8080/api/books/5

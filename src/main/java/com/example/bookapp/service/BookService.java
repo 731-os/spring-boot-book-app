@@ -51,10 +51,20 @@ public class BookService {
         existing.setAuthor(book.getAuthor());
         existing.setPublishedYear(book.getPublishedYear());
         existing.setRead(book.isRead());
-        return bookRepository.save(existing);
+        Book updated = bookRepository.save(existing);
+
+        // 更新も登録と同じくINFOレベルで記録。「何が」「どう変わったか」が
+        // 追えるように、idとtitleを埋め込んでおく
+        log.info("本を更新しました: id={}, title={}", updated.getId(), updated.getTitle());
+        return updated;
     }
 
     public void delete(Long id) {
         bookRepository.deleteById(id);
+
+        // 削除は戻り値がないので、idだけでも記録しておく。
+        // なぜかというと、後で「あの本、誰がいつ消したんだっけ」を
+        // 調査したい時に、この1行がないと痕跡が残らないため
+        log.info("本を削除しました: id={}", id);
     }
 }
