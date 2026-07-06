@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    // target: どのバージョンのJavaScriptとして変換するか。
+    // ES2017を指定することで、Promise(async/await)が標準搭載された
+    // 世界向けにコンパイルされるようになる
+    "target": "ES2017",
+
+    // lib: コンパイル時に「この機能は存在する」と認識させる部品のリスト。
+    // DOMを含めることで、document.getElementByIdなど
+    // ブラウザ画面を操作する機能も認識されるようになる
+    "lib": ["ES2017", "DOM"]
+
+    // outDirは書かない: 指定しなければ、デフォルトで.tsと同じ場所に
+    // .jsが出力される(前回tsc hello.tsで確認できた動きそのもの)
+  },
+
+  // include: このフォルダの中の、全ての.tsファイルをコンパイル対象にする
+  "include": ["*.ts"]
+}
