@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>本管理アプリ</title>
+</head>
+<body>
+<h1>本管理アプリ</h1>
+
+<!--&lt;!&ndash; hello.js(TypeScriptからコンパイルされたJavaScript)を読み込む。-->
+<!--     ブラウザは.tsファイルを直接理解できないので、-->
+<!--     必ずコンパイル後の.jsファイルを指定する必要がある &ndash;&gt;-->
+<!--<script src="hello.js"></script>-->
+
+<!-- 本の一覧を表示する場所。中身は今は空っぽだけど、
+         TypeScript側からここにデータを追加していく -->
+<ul id="book-list"></ul>
+
+<h2>新しい本を登録</h2>
+<form id="book-form">
+    <input type="text" id="title" placeholder="タイトル" required>
+    <input type="text" id="author" placeholder="著者" required>
+    <input type="number" id="publishedYear" placeholder="出版年" required>
+    <label><input type="checkbox" id="read"> 読了</label>
+    <button type="submit">登録</button>
+</form>
+
+<script src="books.js"></script>
+</body>
+</html>

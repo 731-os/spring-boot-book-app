@@ -52,6 +52,7 @@ public class BookController {
     public ResponseEntity<byte[]> exportCsv() {
         List<Book> books = bookService.findAll();
 
+        /* === CSV出力 === */
         // StringWriter: メモリ上の「文字列を書き込んでいく先」。
         // ファイルには保存せず、レスポンスとして直接返すのでこれで十分
         StringWriter sw = new StringWriter();
