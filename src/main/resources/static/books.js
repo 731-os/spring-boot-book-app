@@ -19,6 +19,9 @@ async function loadBooks() {
         console.error('book-list要素が見つかりません');
         return;
     }
+    // なぜここでクリアするのか: この関数は「登録後の再表示」でも呼び出すので、
+    // 空にしておかないと前回の内容の下に、どんどん重複して追加されてしまう
+    listElement.innerHTML = '';
     // 本の数だけ、<li>(リストの1項目)を1つずつ作って一覧に追加していく
     for (const book of books) {
         const li = document.createElement('li');
@@ -26,5 +29,43 @@ async function loadBooks() {
         listElement.appendChild(li);
     }
 }
+function setupForm() {
+    // as HTMLFormElement: 「これはinput要素と同じく、ただのHTMLElementじゃなくて、
+    // .reset()などフォーム専用の機能を持つHTMLFormElementですよ」と明示する
+    const form = document.getElementById('book-form');
+    if (form === null) {
+        console.error('book-form要素が見つかりません');
+        return;
+    }
+    // addEventListener: 「submit(送信)イベントが起きたら、この処理を実行してね」という予約
+    form.addEventListener('submit', async (event) => {
+        console.log('フォーム送信イベントが発生しました');
+        // event.preventDefault(): フォームの本来の動作(ページ全体を再読み込みして
+        // サーバーに送信する、という昔ながらの挙動)を止める。
+        // これを書かないと、ページがリロードされてfetchの結果が見られなくなる
+        event.preventDefault();
+        // "as HTMLInputElement": getElementByIdは「ただのHTMLElement」としか
+        // 教えてくれないので、「これは値(value)を持つinput要素です」と
+        // 明示的に型を教えてあげる必要がある(型アサーションと呼ぶ)
+        const titleInput = document.getElementById('title');
+        const authorInput = document.getElementById('author');
+        const yearInput = document.getElementById('publishedYear');
+        const readInput = document.getElementById('read');
+        const newBook = {
+            title: titleInput.value,
+            author: authorInput.value,
+            publishedYear: Number(yearInput.value), // 入力値は文字列なので数値に変換
+            read: readInput.checked // チェックボックスは.checkedでtrue/falseを取得
+        };
+        await fetch('/api/books', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }, // 「JSON形式で送りますよ」という送り状
+            body: JSON.stringify(newBook) // JavaScriptオブジェクトをJSON文字列に変換
+        });
+        form.reset(); // 入力欄を空に戻す
+        await loadBooks(); // 一覧を再取得して、登録した本を画面に反映する
+    });
+}
 // ページが読み込まれたら、すぐに本の一覧を取得しにいく
 loadBooks();
+setupForm(); // ページ読み込み時に、フォームの送信イベントを予約しておく
