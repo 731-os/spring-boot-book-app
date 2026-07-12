@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>本管理アプリ</h1>
+// 暫時完了。２０２６０７１０
 
 <!--&lt;!&ndash; hello.js(TypeScriptからコンパイルされたJavaScript)を読み込む。-->
 <!--     ブラウザは.tsファイルを直接理解できないので、-->
@@ -18,6 +19,9 @@
 
 <h2>新しい本を登録</h2>
 <form id="book-form">
+    <!-- hidden: 画面には表示されないが、値は保持できる入力欄。
+        「今、どの本を編集中か(id)」を覚えておくための場所 -->
+    <input type="hidden" id="edit-id">
     <input type="text" id="title" placeholder="タイトル" required>
     <input type="text" id="author" placeholder="著者" required>
     <input type="number" id="publishedYear" placeholder="出版年" required>
