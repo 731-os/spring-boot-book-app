@@ -30,6 +30,13 @@ public class BookService {
                 .orElseThrow(() -> new IllegalArgumentException("本が見つかりません: id=" + id));
     }
 
+    public List<Book> search(String title, String author, Boolean read) {
+        // 検索条件を渡しただけの薄いメソッドだが、ここに「検索」という
+        // 業務上の操作名を置いておくことで、Controllerからは
+        // Repositoryの存在を意識せず呼び出せる(層の役割分担を保つ)
+        return bookRepository.search(title, author, read);
+    }
+
     public Book create(Book book) {
         book.setId(null); // 新規登録なのでidは自動採番に任せる
 

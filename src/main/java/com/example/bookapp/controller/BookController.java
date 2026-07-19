@@ -33,6 +33,15 @@ public class BookController {
         return bookService.findById(id);
     }
 
+    @GetMapping("/search")
+    public List<Book> search(
+            // required = false: このパラメータは無くてもエラーにしない、という指定。
+            // 何も付けないと「必須」扱いになり、指定し忘れただけで400エラーになってしまう
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) Boolean read) {
+        return bookService.search(title, author, read);
+    }
     @PostMapping
     public Book create(@RequestBody Book book) {
         return bookService.create(book);

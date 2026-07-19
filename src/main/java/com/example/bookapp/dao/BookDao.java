@@ -20,6 +20,9 @@ public interface BookDao {
     @Select
     Optional<Book> selectById(Long id);
 
+    @Select
+    List<Book> search(String title, String author, Boolean read);
+
     @Insert
     int insert(Book book);
 

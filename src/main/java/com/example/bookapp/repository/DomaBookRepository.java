@@ -26,6 +26,11 @@ public class DomaBookRepository implements BookRepository {
     }
 
     @Override
+    public List<Book> search(String title, String author, Boolean read) {
+        return bookDao.search(title, author, read);
+    }
+
+    @Override
     public Book save(Book book) {
         if (book.getId() == null) {
             bookDao.insert(book);
