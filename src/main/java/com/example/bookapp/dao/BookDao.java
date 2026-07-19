@@ -23,6 +23,12 @@ public interface BookDao {
     @Select
     List<Book> search(String title, String author, Boolean read);
 
+    @Select
+    List<Book> selectPage(int limit, int offset);
+
+    @Select
+    long count();
+
     @Insert
     int insert(Book book);
 

@@ -1,6 +1,8 @@
 package com.example.bookapp.service;
 
 import java.util.List;
+
+import com.example.bookapp.dto.PageResponse;
 import org.springframework.stereotype.Service;
 import com.example.bookapp.model.Book;
 import com.example.bookapp.repository.BookRepository;
@@ -35,6 +37,13 @@ public class BookService {
         // 業務上の操作名を置いておくことで、Controllerからは
         // Repositoryの存在を意識せず呼び出せる(層の役割分担を保つ)
         return bookRepository.search(title, author, read);
+    }
+
+    public PageResponse<Book> findPage(int page, int size) {
+        int offset = page * size; // 何件目から取得するかを計算
+        List<Book> content = bookRepository.findPage(size, offset);
+        long totalElements = bookRepository.count();
+        return new PageResponse<>(content, page, size, totalElements);
     }
 
     public Book create(Book book) {

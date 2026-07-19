@@ -11,4 +11,7 @@ public interface BookRepository {
     void deleteById(Long id);
 
     List<Book> search(String title, String author, Boolean read);
+
+    List<Book> findPage(int limit, int offset);
+    long count();
 }

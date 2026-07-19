@@ -31,6 +31,16 @@ public class DomaBookRepository implements BookRepository {
     }
 
     @Override
+    public List<Book> findPage(int limit, int offset) {
+        return bookDao.selectPage(limit, offset);
+    }
+
+    @Override
+    public long count() {
+        return bookDao.count();
+    }
+
+    @Override
     public Book save(Book book) {
         if (book.getId() == null) {
             bookDao.insert(book);
