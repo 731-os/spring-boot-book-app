@@ -37,6 +37,13 @@ public class BookService {
         return bookRepository.search(title, author, read);
     }
 
+    public PageResponse<Book> findPage(int page, int size) {
+        int offset = page * size; // 何件目から取得するかを計算
+        List<Book> content = bookRepository.findPage(size, offset);
+        long totalElements = bookRepository.count();
+        return new PageResponse<>(content, page, size, totalElements);
+    }
+
     public Book create(Book book) {
         book.setId(null); // 新規登録なのでidは自動採番に任せる
 

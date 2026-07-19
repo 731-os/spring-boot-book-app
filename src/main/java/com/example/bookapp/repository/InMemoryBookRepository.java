@@ -61,6 +61,28 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
+    public List<Book> findPage(int limit, int offset) {
+        List<Book> all = new ArrayList<>(store.values());
+        // SQL側のORDER BY idと同じ意味。並び順を固定しておく
+        all.sort(Comparator.comparing(Book::getId));
+
+        // offsetが全件数より大きい(=そんなページは存在しない)場合は空リストを返す
+        if (offset >= all.size()) {
+            return new ArrayList<>();
+        }
+
+        // Math.min: 「offset + limit」が全件数を超えそうな時、
+        // 全件数の方で頭打ちにする(最後のページで件数がはみ出るのを防ぐ)
+        int toIndex = Math.min(offset + limit, all.size());
+        return all.subList(offset, toIndex);
+    }
+
+    @Override
+    public long count() {
+        return store.size();
+    }
+
+    @Override
     public void deleteById(Long id) {
         store.remove(id);
     }

@@ -12,6 +12,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import com.example.bookapp.dto.PageResponse;
 
 @RestController
 @RequestMapping("/api/books")
@@ -42,6 +43,14 @@ public class BookController {
             @RequestParam(required = false) Boolean read) {
         return bookService.search(title, author, read);
     }
+
+    @GetMapping("/paged")
+    public PageResponse<Book> findPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return bookService.findPage(page, size);
+    }
+
     @PostMapping
     public Book create(@RequestBody Book book) {
         return bookService.create(book);
