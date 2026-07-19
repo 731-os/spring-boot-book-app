@@ -31,3 +31,36 @@ Content-Type: application/json
 
 ### ⑥ 削除
 DELETE http://localhost:8080/api/books/5
+
+### バリデーションNGパターン(タイトル空文字)
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "",
+  "author": "テスト著者",
+  "publishedYear": 2020,
+  "read": false
+}
+
+### バリデーションNGパターン(出版年がマイナス)
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "テストタイトル",
+  "author": "テスト著者",
+  "publishedYear": -5,
+  "read": false
+}
+
+### バリデーションOKパターン(正常な登録)
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "正常なタイトル",
+  "author": "正常な著者",
+  "publishedYear": 2023,
+  "read": false
+}
